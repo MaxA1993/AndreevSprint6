@@ -69,7 +69,7 @@ func PostTask(res http.ResponseWriter, req *http.Request) {
 		http.Error(res, err.Error(), http.StatusBadRequest)
 		return
 	}
-	if _, ok := tasks[task.ID]; !ok {
+	if _, ok := tasks[task.ID]; ok {
 		http.Error(res, "task is alresy exist", http.StatusBadRequest)
 		return
 	}
@@ -97,7 +97,7 @@ func GetTaskById(res http.ResponseWriter, req *http.Request) {
 
 	res.Header().Set("Content-Type", "application/json")
 	res.WriteHeader(http.StatusOK)
-	res.Write(resp)
+	_, _ = res.Write(resp)
 }
 
 func DeleteTask(res http.ResponseWriter, req *http.Request) {
